@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <vector>
+#include <sstream>
 
 namespace vix::ai::nlp
 {
@@ -9,7 +10,11 @@ namespace vix::ai::nlp
     {
         std::vector<std::string> tokenize(const std::string &s) const
         {
-            return s.empty() ? std::vector<std::string>{} : std::vector<std::string>{s};
+            std::vector<std::string> toks;
+            std::istringstream iss(s);
+            for (std::string t; iss >> t;)
+                toks.push_back(std::move(t));
+            return toks;
         }
     };
 
